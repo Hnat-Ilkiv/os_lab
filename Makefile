@@ -1,26 +1,33 @@
-CC = gcc
+all: main
 
-all: program
+static: main_static
+	mv main_static main
 
-ifeq ($(mode),static)
-	echo "static compilation"
 
-else ifeq ($(mode),dynamic)
-	echo "dynamic compilation"
 
-else
-program: object_file/main.o object_file/power.o object_file/factorial.o
-	$(CC) object_file/main.o object_file/power.o object_file/factorial.o -o program 
+main: main.o factorial.o power.o
+	gcc main.o factorial.o power.o -o main
 
-object_file/main.o object_file/power.o object_file/factorial.o: src/main.c src/power.c src/factorial.c
-	mkdir -p object_file
-	$(CC) -c src/main.c -o object_file/main.o
-	$(CC) -c src/power.c -o object_file/power.o
-	$(CC) -c src/factorial.c -o object_file/factorial.o
-endif
+main_static: main.o libmymath.a
+	gcc main.o -o main_static -L. -lmymath
 
-run:
-	./program
-	
+
+
+libmymath.a: factorial.o power.o
+	ar rsc libmymath.a factorial.o power.o
+
+
+
+main.o: src/main.c include/factorial.h include/power.h
+	gcc -c src/main.c
+
+factorial.o: src/factorial.c include/factorial.h
+	gcc -c src/factorial.c
+
+power.o: src/power.c include/power.h
+	gcc -c src/power.c
+
+
+
 clean:
-	rm -rf object_file/ program
+	rm -f *.o *.a main
