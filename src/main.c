@@ -1,4 +1,3 @@
-// main.c
 #include <stdio.h>
 #include "../include/power.h"
 #include "../include/factorial.h"
@@ -15,4 +14,3 @@ int main() {
 
     return 0;
 }
-
