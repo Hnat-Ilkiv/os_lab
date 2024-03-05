@@ -66,6 +66,10 @@ end
 
 view_contents
 
+# Task 5
+#chmod u+x myscript.fish
+#./myscript.fish
+
 # Task 6
 #cat $log_file
 rm -rf $task_directory
