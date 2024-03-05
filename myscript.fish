@@ -49,7 +49,7 @@ function view_contents
 	echo "Enter the number of the file or directory you want to view:"
 	read -P "Choice: " choice_number
 
-	set selected_choice (echo $choices[$choice_number])
+	set selected_choice $choices[$choice_number]
 
 	if test -d "$project_directory/$selected_choice"
 		echo "Contents of directory $selected_choice:"
